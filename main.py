@@ -116,7 +116,7 @@ def main() -> None:
         running_mode=mp.tasks.vision.RunningMode.VIDEO,
         num_hands=2,
         min_hand_detection_confidence=args.min_detection_confidence,
-        min_hand_presence_confidence=args.min_detection-confidence,
+        min_hand_presence_confidence=args.min_detection_confidence,
         min_tracking_confidence=args.min_tracking_confidence,
     )
 
@@ -141,6 +141,7 @@ def main() -> None:
             fps = instantaneous_fps if fps == 0.0 else (0.85 * fps + 0.15 * instantaneous_fps)
             previous_frame_time = frame_time
 
+            # Mirror the preview so it feels natural for the presenter.
             frame = cv2.flip(frame, 1)
             rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb_frame)
